@@ -1,32 +1,30 @@
-public class Solution {
+class Solution {
     public int findMin(int[] nums) {
-        //TODO
-        int pivot = findPivot(nums);
+        int n = nums.length;
+        if( n == 1 || nums[0] < nums[n - 1]) {
+            return nums[0];
+        }
+        int p = findPivot(nums);
 
-
-
-        return pivot == nums.length - 1 ? nums[0] : nums[pivot + 1];
+        return nums[p];
     }
-    public int findPivot(int[] array){
 
-        if(array.length == 0) return  -1;
-
-        int left = 0;
-        int right = array.length - 1;
-        if(array[left] < array[right]) return -1;
-
-
-        while(left < right){
-            int middleIndex = (right + left) / 2;
-            if(array[right] < array[middleIndex]){
-                left = middleIndex;
+    int findPivot(int[] nums) {
+        int n = nums.length;
+        int l = 0;
+        int r = n - 1;
+        int mid;
+        int pivot = n;
+        while(l <= r) {
+            mid = l + (r - l) / 2;
+            if(nums[mid] >= nums[0]) {
+                l = mid + 1;
+            }else {
+                pivot = mid;
+                r = mid - 1;
             }
-            if(array[left] > array[middleIndex]){
-                right = middleIndex;
-            }
-            if(right - left == 1 && array[left] > array[right]) return left;
         }
 
-        return -1;
+        return pivot;
     }
 }
